@@ -3,7 +3,7 @@ class Queue():
     def __init__(self, maxSize):
 
         self.maxSize = maxSize
-        self.top_ponter = -1
+        self.top_pointer = -1
         self.rear_pointer = -1
         self.items = []
 
@@ -13,14 +13,25 @@ class Queue():
             raise Exception("Queue is full")
 
         self.items.append(item)
-        self.top_ponter = 0
+        self.rear_pointer += 1
+        
+        if self.top_pointer == -1:
+            self.top_pointer = 0
+
 
     def dequeue(self):
         if self.isEmpty():
             raise Exception("Queue is empty")
         
-        self.items.remove(self.items[self.top_ponter])
-        self.top_ponter += 1
+        remove = self.items[self.top_pointer]
+        self.top_pointer += 1
+
+        
+        if self.top_pointer > self.rear_pointer:
+            self.top_pointer = -1
+            self.rear_pointer = -1
+
+        return remove
 
     def isEmpty(self):
         if self.rear_pointer == -1:
